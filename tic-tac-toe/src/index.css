@@ -16,11 +16,15 @@ body {
 }
 
 .block {
-  padding: 30px;
+  padding: 20px;
   box-sizing: border-box;
   width: 100px;
   height: 100px;
+  font-size: 45px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .middle {
@@ -31,4 +35,14 @@ body {
 .column2 {
   border-style: solid;
   border-width: 0 3px 0 3px;
+}
+
+.modal{
+  width: 300px;
+  height: 150px;
+  margin: auto;
+  padding: 20px; 
+  background-color: rgba(0, 0, 0, 0.7);
+  color: green;
+  font-size: 30px;
 }

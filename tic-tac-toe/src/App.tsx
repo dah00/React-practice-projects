@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Modal from 'react-modal';
 
 function App() {
   const [table, setTable] = useState([
@@ -8,11 +9,6 @@ function App() {
   ]);
 
   /**
-   * win 
-   * [0,0] [0,1] [0,2]
-   * [0,0] [1,1] [2,2]
-   * [0,0] [1,0] [2,0]
-   * 
    * [0,0] [0,1] [0,2]
    * [1,0] [1,1] [1,2]
    * [2,0] [2,1] [2,2]
@@ -20,6 +16,7 @@ function App() {
    */
 
   const [winner, setWinner] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [turn, setTurn] = useState(true);
   // true - X (O player had the last turn)
   // false - O (X player had the last turn)
@@ -68,15 +65,30 @@ function App() {
 
   useEffect(() =>{
     if(winner){
-      if(turn)
-        console.log("O won!!!!");
-      else
-        console.log("X won!!!!")
+      setModalIsOpen(true)
     }
   }, [winner, turn]);
 
+  const closeModal = () => {
+    setModalIsOpen(false);
+    // reset game
+    setTable(() => {
+      const newState = [
+        ['null', 'null', 'null'],
+        ['null', 'null', 'null'],
+        ['null', 'null', 'null'],
+      ]
+      return newState;
+    })
+    setWinner(false);
+  }
+
   return (
     <div className="app">
+      <Modal className='modal' isOpen={modalIsOpen} onRequestClose={closeModal} ariaHideApp={false}>
+        <p> Congratulations {turn ? "O won" : "X won"}</p>
+        <button onClick={closeModal}>Replay</button>
+      </Modal>
       <div className="table">
         <div className="row">
           <div className="block" onClick={() => handleClick(0, 0)}>
