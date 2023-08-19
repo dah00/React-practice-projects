@@ -5,18 +5,26 @@ import axios from "axios";
 function App() {
   const [quote, setQuote] = useState("");
 
-  const getQuote = () => {
-    axios
-      .get("https://api.quotable.io/random")
-      .then((res) => {
-        // console.log(res.data.content);
-        setQuote(res.data.content);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const getQuote = () => {
+  //   axios
+  //     .get("https://api.quotable.io/random")
+  //     .then((res) => {
+  //       // console.log(res.data.content);
+  //       setQuote(res.data.content);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
+  async function getQuote() {
+    try {
+      let res = await axios.get("https://api.quotable.io/random");
+      setQuote(res.data.content);
+    } catch (error) {
+      console.error(`ERROR: ${error}`);
+    }
+  }
   return (
     <div className="App flex justify-center flex-col">
       <button
