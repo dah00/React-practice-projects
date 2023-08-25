@@ -41,8 +41,7 @@ function App() {
   const renderMovies = () => {
     if(movies){
       return (
-        // className='grid grid-cols-4 gap-4 justify-center bg-inherit'
-        <div >
+        <div className='grid grid-cols-6 gap-4 justify-center bg-inherit'>
           {movies.map(movie => (
             <MovieCard
               key={movie.id}
