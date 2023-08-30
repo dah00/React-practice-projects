@@ -6,14 +6,18 @@ import MovieCard from './components/MovieCard';
 export type Movie = {
   id: number;
   title: string;
-  poster_path: string; // image
+  backdrop_path: string; // image
+  poster_path: string;
   overview: string;   // summary
   release_date: string;
 }
 
+const IMAGE_PATH = "https://image.tmdb.org/t/p/w500";
+
 function App() {
 
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [selectedMovie, setSelectedMovie] = useState<Movie>();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchKey, setSearchKey] = useState("");
 
@@ -32,7 +36,7 @@ function App() {
         }
       });
       console.log(results);
-      console.log(`SeachKey: ${searchKey}`);
+      setSelectedMovie(results[0]);
       setMovies(results);
     }catch(error){
       console.error(`ERROR ${error}`);
@@ -51,16 +55,17 @@ function App() {
   const renderMovies = () => {
     if(movies){
       return (
-        <div className='grid lg:grid-cols-6 gap-4 justify-center bg-inherit sm:grid-cols-4'>
+        <div className='grid lg:grid-cols-4 gap-4 justify-center bg-inherit sm:grid-cols-2'>
           {movies.map(movie => (
             <MovieCard
               key={movie.id}
               movie={{
                 id: movie.id,
                 title: movie.title,
-                poster_path: movie.poster_path,
+                backdrop_path: movie.backdrop_path,
                 overview: movie.overview,
-                release_date: movie.release_date
+                release_date: movie.release_date,
+                poster_path: movie.poster_path
               }}
             />
           ))}
@@ -81,7 +86,18 @@ function App() {
           <button type='submit'>Search</button>
         </form>
       </header>
-      {searchKey}
+
+      <div className='hero flex flex-row gap-x-10'>
+        <div className='hero-image' >
+          <img src={`${IMAGE_PATH}${selectedMovie?.poster_path}`} alt="" />  
+        </div>
+        <div className='hero-legend '>
+          <h1 className='text-center font-semibold text-xl'>{selectedMovie && selectedMovie.title}</h1>
+          <button className="rounded-full bg-slate-900 p-4">Play Trailer</button>
+          <p>{selectedMovie && selectedMovie.overview}</p>
+        </div>    
+        </div>
+
       <main>
         {renderMovies()}
       </main>

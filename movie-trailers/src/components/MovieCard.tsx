@@ -11,7 +11,7 @@ const IMAGE_PATH = "https://image.tmdb.org/t/p/w500";
 function MovieCard({movie}: MovieCardProps ) {
   
   const [readMore, setReadMore] = useState(false);
-  const {title, poster_path, overview, release_date } = movie;
+  const {title, backdrop_path, overview, release_date } = movie;
 
   const displayOverview = () => {
     if(readMore){
@@ -28,12 +28,12 @@ function MovieCard({movie}: MovieCardProps ) {
 
   return (
     <div className='flex flex-col gap-y-4'>
-        <img src={`${IMAGE_PATH}${poster_path}`} alt={title} />
-        <figcaption className='flex flex-col gap-y-2'>
-            <h3 className='text-center font-semibold text-xl'>{title}</h3>
+        <img src={`${IMAGE_PATH}${backdrop_path}`} alt={title} className='object-cover w-full h-60' />
+        <figcaption className='flex flex-col gap-y-1'>
+            <h3 className='text-center font-semibold text-base'>{title}</h3>
             <div className='flex items-center gap-2'><span className='underline'>Rate</span><FaStar size={20} color='gold'/></div>
-            <h4><span className='underline'>Released on:</span> {release_date}</h4>
-            <div><span className='underline'>Summary</span>{overview.length < 180 ? <p>{overview}</p> : displayOverview()}</div>
+            <h4 className='text-sm'><span className='underline '>Released on:</span > {release_date}</h4>
+            <div className='text-sm'><span className='underline'>Summary</span>{overview.length < 180 ? <p>{overview}</p> : displayOverview()}</div>
         </figcaption>
     </div>
   )

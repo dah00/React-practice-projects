@@ -1,12 +1,14 @@
 .App {
   box-sizing: border-box;
   padding: 0
-  /* margin: 0;
-  padding: 0; */
-  /* width: 95%;
+}
+
+
+.hero-legend{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; */
-  
+  align-items: center;
+  gap: 15px;
+  color: white(90, 110, 153);
 }
